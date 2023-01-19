@@ -1,0 +1,22 @@
+SELECT 
+ --from raw_orders
+ O.ORDERID ,
+ O.ORDERDATE ,
+ O.SHIPDATE ,
+ O.SHIPMODE, 
+ O.ORDERSELLINGPRICE - O.ORDERCOSTPRICE AS ORDERPROFIT,
+ O.ORDERSELLINGPRICE,
+ O.ORDERCOSTPRICE,
+ --from raw_customer 
+ C.CUSTOMERNAME,
+ C.SEGMENT,
+ C.COUNTRY,
+ --from raw_product 
+ P.CATEGORY, 
+ P.PRODUCTNAME,
+ P.SUBCATEGORY
+FROM {{ ref('raw_orders') }} AS O
+ LEFT JOIN {{ ref('raw_customer') }} AS C
+  ON O.CUSTOMERID = C.CUSTOMERID
+ LEFT JOIN {{ ref('raw_product') }} AS P
+  ON O.PRODUCTID = P.PRODUCTID
