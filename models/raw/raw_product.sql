@@ -5,5 +5,5 @@
 }}
 
 
-SELECT * 
-  FROM "RAW"."GLOBAL_MART"."PRODUCT"
+SELECT * FROM
+   {{ source('GLOBAL_MART', 'PRODUCT') }}
